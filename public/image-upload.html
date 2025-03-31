@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Загрузка изображений - AI Бот Серфер</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body class="bg-gray-100">
+  <div class="container mx-auto px-4 py-8">
+    <header class="mb-8">
+      <h1 class="text-3xl font-bold text-blue-600">
+        <i class="fas fa-image mr-2"></i>Загрузка изображений
+      </h1>
+      <nav class="flex mt-4">
+        <a href="/" class="text-blue-500 hover:text-blue-700 mr-4">
+          <i class="fas fa-home mr-1"></i>Главная
+        </a>
+        <a href="/task-builder.html" class="text-blue-500 hover:text-blue-700">
+          <i class="fas fa-tasks mr-1"></i>Конструктор задач
+        </a>
+      </nav>
+    </header>
+
+    <div class="bg-white p-6 rounded-lg shadow">
+      <div id="dropZone" 
+           class="border-2 border-dashed border-gray-300 rounded-lg p-12 text-center cursor-pointer hover:border-blue-400 transition"
+           ondragover="event.preventDefault()"
+           ondrop="handleDrop(event)">
+        <i class="fas fa-cloud-upload-alt text-4xl text-gray-400 mb-2"></i>
+        <p class="text-gray-600 mb-1">Перетащите изображения сюда</p>
+        <p class="text-gray-500 text-sm">или</p>
+        <input type="file" id="fileInput" class="hidden" accept="image/*" multiple>
+        <button onclick="document.getElementById('fileInput').click()" 
+                class="mt-4 bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded">
+          <i class="fas fa-folder-open mr-2"></i>Выбрать файлы
+        </button>
+        <p class="text-gray-400 text-xs mt-4">Поддерживаются: JPG, PNG (макс. 10MB)</p>
+      </div>
+
+      <div id="previewContainer" class="mt-6 grid grid-cols-2 md:grid-cols-4 gap-4 hidden">
+        <h3 class="col-span-full text-lg font-medium text-gray-700">Загруженные изображения:</h3>
+        <!-- Превью будут добавляться сюда -->
+      </div>
+
+      <div class="mt-6 flex justify-end">
+        <button id="useImagesBtn" class="bg-green-500 hover:bg-green-600 text-white px-6 py-2 rounded-lg font-medium hidden">
+          <i class="fas fa-check mr-2"></i>Использовать в задаче
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function handleDrop(e) {
+      e.preventDefault();
+      const files = e.dataTransfer.files;
+      handleFiles(files);
+    }
+
+    document.getElementById('fileInput').addEventListener('change', (e) => {
+      handleFiles(e.target.files);
+    });
+
+    function handleFiles(files) {
+      const previewContainer = document.getElementById('previewContainer');
+      previewContainer.innerHTML = '<h3 class="col-span-full text-lg font-medium text-gray-700">Загруженные изображения:</h3>';
+      
+      Array.from(files).forEach(file => {
+        if (!file.type.match('image.*')) return;
+        
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          const preview = document.createElement('div');
+          preview.className = 'relative group';
+          preview.innerHTML = `
+            <img src="${e.target.result}" class="w-full h-32 object-cover rounded">
+            <button class="absolute top-1 right-1 bg-red-500 text-white rounded-full w-6 h-6 opacity-0 group-hover:opacity-100 transition">
+              <i class="fas fa-times"></i>
+            </button>
+          `;
+          previewContainer.appendChild(preview);
+        };
+        reader.readAsDataURL(file);
+      });
+
+      previewContainer.classList.remove('hidden');
+      document.getElementById('useImagesBtn').classList.remove('hidden');
+    }
+  </script>
+</body>
+</html>
