@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Конструктор задач - AI Бот Серфер</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body class="bg-gray-100">
+  <div class="container mx-auto px-4 py-8">
+    <header class="mb-8">
+      <h1 class="text-3xl font-bold text-blue-600">
+        <i class="fas fa-tasks mr-2"></i>Конструктор задач
+      </h1>
+      <nav class="flex mt-4">
+        <a href="/" class="text-blue-500 hover:text-blue-700 mr-4">
+          <i class="fas fa-home mr-1"></i>Главная
+        </a>
+        <a href="/image-upload.html" class="text-blue-500 hover:text-blue-700">
+          <i class="fas fa-image mr-1"></i>Загрузка изображений
+        </a>
+      </nav>
+    </header>
+
+    <div class="bg-white p-6 rounded-lg shadow">
+      <form id="taskForm">
+        <div class="mb-6">
+          <label class="block text-gray-700 font-medium mb-2">Описание задачи</label>
+          <textarea 
+            id="taskDescription" 
+            class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+            rows="5"
+            placeholder="Пример: Найти в Google 'курсы Python', перейти на первый результат, подождать 2 минуты, затем найти 'новости IT' и перейти на второй результат"></textarea>
+        </div>
+
+        <div class="mb-6">
+          <label class="block text-gray-700 font-medium mb-2">Настройки бота</label>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <label class="block text-gray-600 mb-1">Количество ботов</label>
+              <select id="botCount" class="w-full p-2 border rounded">
+                <option value="1">1 бот</option>
+                <option value="3" selected>3 бота</option>
+                <option value="5">5 ботов</option>
+              </select>
+            </div>
+            <div>
+              <label class="flex items-center">
+                <input type="checkbox" id="humanLike" class="mr-2" checked>
+                <span>Имитировать человеческое поведение</span>
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <div class="flex justify-end">
+          <button type="submit" class="bg-blue-500 hover:bg-blue-600 text-white px-6 py-2 rounded-lg font-medium">
+            <i class="fas fa-save mr-2"></i>Сохранить задачу
+          </button>
+        </div>
+      </form>
+    </div>
+
+    <div id="taskPreview" class="mt-8 bg-white p-6 rounded-lg shadow hidden">
+      <h2 class="text-xl font-semibold mb-4">Предпросмотр задачи</h2>
+      <div id="previewContent" class="space-y-2"></div>
+    </div>
+  </div>
+
+  <script src="/script.js"></script>
+</body>
+</html>
