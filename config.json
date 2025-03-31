@@ -1,0 +1,28 @@
+{
+  "app": {
+    "name": "AI Bot Surfer",
+    "version": "1.0.0",
+    "port": 8000,
+    "language": "ru"
+  },
+  "bots": {
+    "maxCount": 10,
+    "defaultTimeout": 30000,
+    "humanLike": {
+      "mouseMoveProbability": 0.7,
+      "scrollProbability": 0.8,
+      "minDelay": 1000,
+      "maxDelay": 5000
+    }
+  },
+  "google": {
+    "searchUrl": "https://www.google.com/search?q=",
+    "resultsSelector": ".g a",
+    "maxResults": 5
+  },
+  "uploads": {
+    "maxFileSize": "10MB",
+    "allowedTypes": ["image/jpeg", "image/png"],
+    "storagePath": "public/uploads"
+  }
+}
