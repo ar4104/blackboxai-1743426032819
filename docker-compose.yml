@@ -1,0 +1,13 @@
+version: '3.8'
+
+services:
+  ai-bot-surfer:
+    build: .
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./public/uploads:/app/public/uploads
+    environment:
+      - NODE_ENV=production
+      - PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true
+    restart: unless-stopped
